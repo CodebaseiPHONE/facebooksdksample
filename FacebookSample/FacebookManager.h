@@ -18,6 +18,6 @@
 +(void)activateApp;
 + (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
-
-
++(void)openSessionWithWritePermissions:(NSArray*) permissions;
++(void)openSessionWithReadPermissions:(NSArray*) permissions;
 @end

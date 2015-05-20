@@ -7,7 +7,7 @@
 //
 
 #import "FirstViewController.h"
-
+#import "FacebookManager.h"
 @interface FirstViewController ()
 
 @end
@@ -24,4 +24,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)loginToFacebook:(id)sender {
+    
+    [FacebookManager openSessionWithReadPermissions:nil];
+}
 @end

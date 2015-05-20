@@ -19,11 +19,13 @@
     return sharedMyManager;
 }
 
--(void)loginToFacebookWithPemissions:(NSArray*) permissions
+-(void)openSessionWithReadPermissions:(NSArray*) permissions
 {
     
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-    [login logInWithReadPermissions:@[@"email"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+    
+    permissions = @ [@"email", @"user_location",@"user_friends",@"public_profile"];
+    [login logInWithReadPermissions:permissions handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if (error) {
             // Process error
         } else if (result.isCancelled) {
@@ -39,11 +41,12 @@
     
 }
 
--(void)authoriseReadPermission
+-(void)openSessionWithWritePermissions:(NSArray*) permissions
 {
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
 
-    [login logInWithReadPermissions:@[@"publish_actions"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+    permissions = @[@"publish_actions"]
+    [login logInWithPublishPermissions:permissions handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if (error) {
             // Process error
         } else if (result.isCancelled) {
@@ -56,6 +59,18 @@
             }
         }
     }];
+}
++(void)openSessionWithWritePermissions:(NSArray*) permissions
+{
+    FacebookManager* fbmanger = [FacebookManager sharedManager];
+    
+    [fbmanger openSessionWithWritePermissions:permissions];
+}
++(void)openSessionWithReadPermissions:(NSArray*) permissions
+{
+    FacebookManager* fbmanger = [FacebookManager sharedManager];
+    
+    [fbmanger openSessionWithReadPermissions:permissions];
 }
 +(void)handleDidFinish:(UIApplication*) application andLaunchOptions:(NSDictionary *)launchOptions
 {

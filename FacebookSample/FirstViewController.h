@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FirstViewController : UIViewController
+- (IBAction)loginToFacebook:(id)sender;
 
 
 @end
